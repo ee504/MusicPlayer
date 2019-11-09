@@ -3,6 +3,7 @@ package com.starichenkov.musicplayer;
 import android.content.Context;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -35,11 +36,11 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Song
         //TextView textNameSong;
         //TextView textTypeAuthor;
         //ImageView imageSong;
-        private SongListItemBinding songListItemBinding;
+        private ViewDataBinding songListItemBinding;
 
         OnSongListener onSongListener;
 
-        public SongViewHolder(@NonNull SongListItemBinding songListItemBinding, OnSongListener onSongListener) {
+        public SongViewHolder(@NonNull ViewDataBinding  songListItemBinding) {
             super(songListItemBinding.getRoot());
             this.songListItemBinding = songListItemBinding;
             //textNameEvent = (TextView) view.findViewById(R.id.textNameEvent);
@@ -83,10 +84,7 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Song
     @Override
     public SongViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // create a new view
-        //LayoutInflater inflater = LayoutInflater.from(mContext);
-        //View view = inflater.inflate(mResourse, parent, false);
-        //return new SongViewHolder(view, mOnSongListener);
-        SongListItemBinding songListItemBinding =
+        ViewDataBinding  songListItemBinding =
                 DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
                         R.layout.item_song, viewGroup, false);
         return new SongViewHolder(songListItemBinding);
@@ -99,18 +97,7 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Song
         // - replace the contents of the view with that element
 
         Song currentSong = songs.get(position);
-        songViewHolder.songListItemBinding.setSong(currentSong);
-
-        /*Events event = events.get(position);
-        holder.textNameEvent.setText(event.getNameEvent());
-        holder.textTypeEvent.setText(event.getTypeEvent());
-        holder.textAddressEvent.setText(event.getAddressEvent());
-        holder.imageDot.setImageDrawable(typeEvent.getDrawable(mContext, event.getTypeEvent()));
-        //holder.imageEvent.setImageURI(Uri.parse(event.photoEvent));
-        //Picasso.with(mContext).load(event.photoEvent).into(imageView);
-        Log.d(TAG, "event.nameEvent: " + event.getNameEvent());
-        holder.loadImage(event.getPhotoEvent());
-        setAnimation(holder.llBookMark, position);*/
+        songViewHolder.songListItemBinding.se(currentSong);
 
     }
 
