@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
-public class Song {
+public class Track {
 
     @SerializedName("artistName")
     private String artistName;
