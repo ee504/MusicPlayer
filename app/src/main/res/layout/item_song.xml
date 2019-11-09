@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id = "@+id/llBookMark"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:layout_margin="3dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imageEvent"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:scaleType="centerCrop" />
+    <data>
+        <variable
+            name="song"
+            type="com.starichenkov.musicplayer.Song" />
+    </data>
 
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:layout_height="wrap_content"
+        android:id = "@+id/llBookMark"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_margin="3dp">
 
-        <TextView
-            android:id="@+id/textNameSong"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Song"/>
+        <ImageView
+            android:id="@+id/ivSong"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            bind:avatar="@{song.trackCover}"/>
 
-        <TextView
-            android:id="@+id/textNameAuthor"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Author"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/tvNameSong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{song.trackName}"/>
+
+            <TextView
+                android:id="@+id/tvNameAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{song.artistName}"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>
