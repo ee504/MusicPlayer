@@ -18,4 +18,10 @@ public interface ItunesSongApi {
 
     @GET("search")
     Single<List<Track>> fetchTracks3(@Query("term") String term);
+
+    @GET("search")
+    Single<Track> fetchTracks4(@Query("term") String term);
+
+    @GET("search")
+    Single<ItunesResponse> fetchTracks5(@Query("term") String term, @Query("media") String media, @Query("limit") String limit);
 }
