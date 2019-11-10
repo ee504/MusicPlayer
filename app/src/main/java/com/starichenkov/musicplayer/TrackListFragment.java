@@ -59,9 +59,7 @@ public class TrackListFragment extends Fragment {
     private void setupListUpdate() {
         //viewModel.loading.set(View.VISIBLE);
         viewModel.fetchList();
-        MutableLiveData<List<Track>> tracks = new MutableLiveData<List<Track>>();
-        tracks.setValue(viewModel.getTracks());
-        tracks.observe(this, new Observer<List<Track>>() {
+        viewModel.getTracks().observe(this, new Observer<List<Track>>() {
             @Override
             public void onChanged(List<Track> tracks) {
                 //viewModel.loading.set(View.GONE);
@@ -77,9 +75,7 @@ public class TrackListFragment extends Fragment {
     }
 
     private void setupListClick() {
-        MutableLiveData<Track> track = new MutableLiveData<Track>();
-        track.setValue(viewModel.getSelected());
-        track.observe(this, new Observer<Track>() {
+        viewModel.getSelected().observe(this, new Observer<Track>() {
             @Override
             public void onChanged(Track track) {
                 Log.d(TAG, "onChanged():");
