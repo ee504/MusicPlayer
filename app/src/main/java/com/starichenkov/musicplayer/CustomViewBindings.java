@@ -15,7 +15,7 @@ public class CustomViewBindings {
 
     @BindingAdapter("setAdapter")
     public static void bindRecyclerViewAdapter(RecyclerView recyclerView, RecyclerView.Adapter<?> adapter) {
-        Log.d(TAG, "setAdapter");
+        //Log.d(TAG, "setAdapter");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
@@ -23,7 +23,7 @@ public class CustomViewBindings {
 
     @BindingAdapter("imageUrl")
     public static void bindRecyclerViewAdapter(ImageView imageView, String imageUrl) {
-        Log.d(TAG, "imageUrl");
+        //Log.d(TAG, "imageUrl");
         /*if (imageUrl != null) {
             // If we don't do this, you'll see the old image appear briefly
             // before it's replaced with the current image

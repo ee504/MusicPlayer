@@ -2,7 +2,9 @@ package com.starichenkov.musicplayer;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableInt;
 import android.util.Log;
+import android.view.View;
 
 import com.starichenkov.musicplayer.TrackListAdapter;
 
@@ -22,21 +24,52 @@ public class TrackViewModel extends ViewModel {
     private MutableLiveData<List<Track>> tracks;
     private TrackListAdapter adapter;
     private MutableLiveData<Track> selected;
+    public ObservableInt showEmpty;
 
     public void init(){
         tracks = new MutableLiveData<List<Track>>();
         adapter = new TrackListAdapter(R.layout.item_track, this);
         selected = new MutableLiveData<>();
+        showEmpty = new ObservableInt(View.GONE);
+    }
+
+    public void onTextChanged(CharSequence s, int start, int before, int count){
+        Log.d(TAG, "s: " + s);
+        Log.d(TAG, "start: " + start);
+        Log.d(TAG, "before: " + before);
+        Log.d(TAG, "count: " + count);
+
+        if(s.length() > 4){
+            ItunesSongApi apiService = RetrofitClient.getClient().create(ItunesSongApi.class);
+            //String abba = "ABBA";
+            // Fetching all notes
+            apiService.fetchTracks5(s.toString(), "music", "200")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableSingleObserver<ItunesResponse>() {
+                        @Override
+                        public void onSuccess(ItunesResponse itunesResponse) {
+                            Log.d(TAG, "resultCount: " + itunesResponse.getResultCount());
+                            tracks.setValue(itunesResponse.getListOfTracks());
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // Network error
+                            Log.d(TAG, "onError: " + e.getMessage());
+                        }
+                    });
+        }
+        if(s.length() < 5 && before > 4){
+            Log.d(TAG, "here: ");
+            //tracks.setValue(new ArrayList<Track>());
+            clearAdapter();
+        }
     }
 
     public void fetchList() {
-        /*List<Track> listTracks = new ArrayList<>();
-        listTracks.add(new Track("Dancing Queen","ABBA", "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/88/92/4c/88924c01-6fb3-8616-f0b3-881b1ed09e03/source/30x30bb.jpg"));
-        listTracks.add(new Track("Take a Chance On Me","ABBA", "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/88/92/4c/88924c01-6fb3-8616-f0b3-881b1ed09e03/source/30x30bb.jpg"));
-        listTracks.add(new Track("Waterloo","ABBA", "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/88/92/4c/88924c01-6fb3-8616-f0b3-881b1ed09e03/source/30x30bb.jpg"));*/
-        ItunesSongApi apiService = RetrofitClient.getClient().create(ItunesSongApi.class);
+        /*ItunesSongApi apiService = RetrofitClient.getClient().create(ItunesSongApi.class);
         String abba = "ABBA";
-        String type = "musicTrack";
         // Fetching all notes
         apiService.fetchTracks5(abba, "music", "200")
                 .subscribeOn(Schedulers.io())
@@ -53,7 +86,7 @@ public class TrackViewModel extends ViewModel {
                         // Network error
                         Log.d(TAG, "onError: " + e.getMessage());
                     }
-                });
+                });*/
     }
 
     public MutableLiveData<List<Track>> getTracks() {
@@ -65,6 +98,7 @@ public class TrackViewModel extends ViewModel {
     }
 
     public void setTracksInAdapter(List<Track> tracks) {
+        Log.d(TAG, "setTracksInAdapter");
         this.adapter.setTrackList(tracks);
         this.adapter.notifyDataSetChanged();
     }
@@ -81,36 +115,6 @@ public class TrackViewModel extends ViewModel {
         //selected = track;
     }
 
-    public void onButClick() {
-        //ItunesSongApi apiService = RetrofitClient.getService();
-        ItunesSongApi apiService = RetrofitClient.getClient().create(ItunesSongApi.class);
-        String abba = "ABBA";
-        String type = "musicTrack";
-        // Fetching all notes
-        apiService.fetchTracks5(abba, "music", "200")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<ItunesResponse>() {
-                    @Override
-                    public void onSuccess(ItunesResponse itunesResponse) {
-                        Log.d(TAG, "resultCount: " + itunesResponse.getResultCount());
-                        ListIterator<Track>
-                                iterator = itunesResponse.getListOfTracks().listIterator();
-                        // Printing the iterated value
-                        while (iterator.hasNext()) {
-                            Log.d(TAG, "track: " + iterator.next().getTrackName());
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        // Network error
-                        Log.d(TAG, "onError: " + e.getMessage());
-                    }
-                });
-    }
-
     public Track getTrackAt(Integer index) {
         if (tracks.getValue() != null &&
                 index != null &&
@@ -123,6 +127,14 @@ public class TrackViewModel extends ViewModel {
             return tracks.get(index);
         }
         return null;*/
+    }
+
+    public void clearAdapter() {
+        Log.d(TAG, "here: ");
+        tracks.setValue(new ArrayList<Track>());
+        this.adapter.setTrackList(tracks.getValue());
+        this.adapter.notifyDataSetChanged();
+
     }
 
     //public void fetchTrackImagesAt(Integer position) {

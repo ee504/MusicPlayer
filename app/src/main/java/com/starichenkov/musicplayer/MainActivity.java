@@ -18,7 +18,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTrackListFragment = new TrackListFragment();
+        mTrackListFragment = new PlayerFragment();
 
         FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
         fTrans.add(R.id.frgmMain, mTrackListFragment)

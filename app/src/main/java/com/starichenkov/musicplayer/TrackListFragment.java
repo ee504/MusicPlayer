@@ -62,11 +62,8 @@ public class TrackListFragment extends Fragment {
         viewModel.getTracks().observe(this, new Observer<List<Track>>() {
             @Override
             public void onChanged(List<Track> tracks) {
-                //viewModel.loading.set(View.GONE);
-                if (tracks.size() == 0) {
-                    //viewModel.showEmpty.set(View.VISIBLE);
-                } else {
-                    //viewModel.showEmpty.set(View.GONE);
+                Log.d(TAG, "getTracks().observe: " + tracks.size());
+                if(tracks.size() != 0) {
                     viewModel.setTracksInAdapter(tracks);
                 }
             }
