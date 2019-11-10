@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
         <variable
@@ -17,18 +18,19 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id = "@+id/llBookMark"
+        android:id = "@+id/llSongs"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_margin="3dp"
-        android:onClick="@{() -> viewModel.onItemClick(position)}">
+        android:onClick="@{() -> viewModel.onItemClick(position)}"
+        >
 
         <ImageView
             android:id="@+id/ivSong"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="10dp"
-            android:src="@drawable/vinyl_record"/>
+            android:src="@drawable/vinyl_record_60x60"/>
             //app:imageUrl="@{viewModel.images[viewModel.getDogBreedAt(position).breed]}"/>
 
         <LinearLayout
@@ -37,17 +39,28 @@
             android:orientation="vertical"
             android:layout_margin="10dp">
 
-            <TextView
-                android:id="@+id/tvNameSong"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.getTrackAt(position).trackName}"/>
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:layout_gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/tvNameAuthor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.getTrackAt(position).artistName}"/>
+                <TextView
+                    android:id="@+id/tvNameSong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.getTrackAt(position).trackName}"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/tvNameAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.getTrackAt(position).artistName}"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

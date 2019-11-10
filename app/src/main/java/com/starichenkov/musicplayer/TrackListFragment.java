@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class TrackListFragment extends Fragment {
 
-    //private final String TAG = getResources().getString(R.string.log_name);
+    private final String TAG = "myTag";
 
     private TrackViewModel viewModel;
 
@@ -38,7 +39,7 @@ public class TrackListFragment extends Fragment {
         }
         binding.setViewModel(viewModel);
         setupListUpdate();
-
+        setupListClick();
 
         return view;
     }
@@ -72,7 +73,7 @@ public class TrackListFragment extends Fragment {
                 }
             }
         });
-        setupListClick();
+
     }
 
     private void setupListClick() {
@@ -80,9 +81,10 @@ public class TrackListFragment extends Fragment {
         track.setValue(viewModel.getSelected());
         track.observe(this, new Observer<Track>() {
             @Override
-            public void onChanged(Track track1) {
-                if (track1 != null) {
-                    Toast.makeText(getContext(), "You selected a " + track1.getTrackName(), Toast.LENGTH_SHORT).show();
+            public void onChanged(Track track) {
+                Log.d(TAG, "onChanged():");
+                if (track != null) {
+                    Toast.makeText(getContext(), "You selected a " + track.getTrackName(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

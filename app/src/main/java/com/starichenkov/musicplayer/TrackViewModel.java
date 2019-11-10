@@ -1,6 +1,7 @@
 package com.starichenkov.musicplayer;
 
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
 import com.starichenkov.musicplayer.TrackListAdapter;
 
@@ -9,6 +10,8 @@ import java.util.List;
 
 
 public class TrackViewModel extends ViewModel {
+
+    private final String TAG = "myTag";
 
     public List<Track> tracks;
     public TrackListAdapter adapter;
@@ -43,7 +46,9 @@ public class TrackViewModel extends ViewModel {
     }
 
     public void onItemClick(Integer index) {
+        Log.d(TAG, "onItemClick: " + index);
         Track track = getTrackAt(index);
+        Log.d(TAG, "track: " + track.getTrackName());
         selected = track;
     }
 

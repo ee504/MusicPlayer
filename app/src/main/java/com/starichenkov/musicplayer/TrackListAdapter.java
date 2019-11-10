@@ -38,10 +38,10 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
             binding.executePendingBindings();
         }
 
-        public void loadImage(String url){
+        /*public void loadImage(String url){
             //Picasso.with(context).load(url).placeholder(R.drawable.placeholder).error(R.drawable.error_ph).into(this.image);
             //Picasso.get().load(url).placeholder(R.drawable.event_map_logo).error(R.drawable.event_map_logo).into(imageEvent);
-        }
+        }*/
     }
 
     //Constructor
