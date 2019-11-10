@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-public class TracksListAdapter extends RecyclerView.Adapter<TracksListAdapter.TrackViewHolder> {
+public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.TrackViewHolder> {
 
-    private final String TAG = Resources.getSystem().getString(R.string.log_name);
+    //private final String TAG = Resources.getSystem().getString(R.string.log_name);
 
     private List<Track> tracks;
     private int layoutId;
@@ -32,7 +32,7 @@ public class TracksListAdapter extends RecyclerView.Adapter<TracksListAdapter.Tr
         }
 
         public void bind(TrackViewModel viewModel, Integer position){
-            viewModel.fetchTrackImagesAt(position);
+            //viewModel.fetchTrackImagesAt(position);
             binding.setVariable(BR.viewModel, viewModel);
             binding.setVariable(BR.position, position);
             binding.executePendingBindings();
@@ -45,7 +45,7 @@ public class TracksListAdapter extends RecyclerView.Adapter<TracksListAdapter.Tr
     }
 
     //Constructor
-    public void TracksListAdapter(@LayoutRes int layoutId, TrackViewModel viewModel){
+    public TrackListAdapter(@LayoutRes int layoutId, TrackViewModel viewModel){
         this.layoutId = layoutId;
         this.viewModel = viewModel;
     }

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="song"
-            type="com.starichenkov.musicplayer.Track" />
+            name="position"
+            type="java.lang.Integer" />
+
+        <variable
+            name="viewModel"
+            type="com.starichenkov.musicplayer.TrackViewModel" />
     </data>
 
     <LinearLayout
@@ -15,14 +20,16 @@
         android:id = "@+id/llBookMark"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_margin="3dp">
+        android:layout_margin="3dp"
+        android:onClick="@{() -> viewModel.onItemClick(position)}">
 
         <ImageView
             android:id="@+id/ivSong"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            bind:avatar="@{song.trackCover}"/>
+            android:src="@drawable/vinyl_record"/>
+            //app:imageUrl="@{viewModel.images[viewModel.getDogBreedAt(position).breed]}"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,13 +41,13 @@
                 android:id="@+id/tvNameSong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{song.trackName}"/>
+                android:text="@{viewModel.getTrackAt(position).trackName}"/>
 
             <TextView
                 android:id="@+id/tvNameAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{song.artistName}"/>
+                android:text="@{viewModel.getTrackAt(position).artistName}"/>
 
         </LinearLayout>
 
