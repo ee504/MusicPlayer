@@ -14,7 +14,7 @@ public class Track extends BaseObservable {
     private String artistName;
     @SerializedName("trackName")
     private String trackName;
-    @SerializedName("artworkUrl30")
+    @SerializedName("artworkUrl60")
     private String trackCover;
     @SerializedName("previewUrl")
     private String trackUrl;

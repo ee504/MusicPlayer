@@ -46,13 +46,6 @@ public class TrackViewModel extends ViewModel {
                     public void onSuccess(ItunesResponse itunesResponse) {
                         Log.d(TAG, "resultCount: " + itunesResponse.getResultCount());
                         tracks.setValue(itunesResponse.getListOfTracks());
-                        //ListIterator<Track>
-                                //iterator = itunesResponse.getListOfTracks().listIterator();
-                        // Printing the iterated value
-                        //while (iterator.hasNext()) {
-                            //Log.d(TAG, "track: " + iterator.next().getTrackName());
-                        //}
-
                     }
 
                     @Override
@@ -61,7 +54,6 @@ public class TrackViewModel extends ViewModel {
                         Log.d(TAG, "onError: " + e.getMessage());
                     }
                 });
-        //tracks.setValue(listTracks);
     }
 
     public MutableLiveData<List<Track>> getTracks() {
