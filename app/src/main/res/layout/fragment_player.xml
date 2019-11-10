@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="frag"
+            type="com.starichenkov.musicplayer.PlayerFragment" />
+    </data>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -14,8 +21,6 @@
             android:layout_height="400dp"
             android:background="@drawable/vinyl_record_500x500">
 
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -24,6 +29,11 @@
             android:layout_height="match_parent">
 
 
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"/>
         </LinearLayout>
 
     </LinearLayout>
