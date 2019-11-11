@@ -30,7 +30,6 @@ public class TrackListFragment extends Fragment {
 
         FragmentSongListBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_song_list, container, false);
-        //FragmentSongListBinding binding = DataBindingUtil.setContentView(this, R.layout.fragment_song_list);
         View view = binding.getRoot();
 
         viewModel = ViewModelProviders.of(this).get(TrackViewModel.class);
@@ -43,18 +42,6 @@ public class TrackListFragment extends Fragment {
 
         return view;
     }
-
-
-    /*private void setupBindings(Bundle savedInstanceState) {
-        ActivityDogBreedsBinding activityBinding = DataBindingUtil.setContentView(this, R.layout.fragment_song_list);
-        viewModel = ViewModelProviders.of(this).get(TrackViewModel.class);
-        if (savedInstanceState == null) {
-            viewModel.init();
-        }
-        activityBinding.setModel(viewModel);
-        //setupListUpdate();
-
-    }*/
 
     private void setupListUpdate() {
         //viewModel.loading.set(View.VISIBLE);

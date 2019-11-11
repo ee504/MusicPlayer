@@ -6,20 +6,26 @@
     <data>
 
         <variable
-            name="frag"
+            name="playFragment"
             type="com.starichenkov.musicplayer.PlayerFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.starichenkov.musicplayer.TrackViewModel" />
     </data>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/llCover"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:background="@drawable/vinyl_record_500x500">
+            android:background="@drawable/vinyl_record_500x500"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true">
 
         </LinearLayout>
 
@@ -28,15 +34,26 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp">
+            android:layout_marginTop="35dp"
+            android:layout_below="@+id/llCover">
 
             <TextView
                 android:id="@+id/tvNameSong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Это же тот самый трек"
+                android:text="@{viewModel.getTrackAt(position).trackName}"
                 android:textSize="30dp"
-                android:gravity="center_horizontal"
+                android:gravity="center"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.getTrackAt(position).artistName}"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_below="@+id/tvNameSong"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>
@@ -59,6 +76,8 @@
 
                 <ImageButton android:id="@+id/btnPlay"
                     style="@android:style/MediaButton.Play"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     />
 
             </LinearLayout>
@@ -115,7 +134,7 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </layout>
