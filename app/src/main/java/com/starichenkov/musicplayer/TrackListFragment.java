@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,18 +35,18 @@ public class TrackListFragment extends Fragment {
 
         viewModel = ViewModelProviders.of(getActivity()).get(TrackViewModel.class);
         if (savedInstanceState == null) {
-            viewModel.init();
+            //viewModel.init();
         }
         binding.setViewModel(viewModel);
         setupListUpdate();
-        setupListClick();
+        //setupListClick();
 
         return view;
     }
 
     private void setupListUpdate() {
         //viewModel.loading.set(View.VISIBLE);
-        viewModel.fetchList();
+        //viewModel.fetchList();
         viewModel.getTracks().observe(this, new Observer<List<Track>>() {
             @Override
             public void onChanged(List<Track> tracks) {
@@ -62,7 +63,7 @@ public class TrackListFragment extends Fragment {
         viewModel.getSelected().observe(this, new Observer<Track>() {
             @Override
             public void onChanged(Track track) {
-                Log.d(TAG, "onChanged():");
+                Log.d(TAG, "onChanged() fragment:");
                 if (track != null) {
                     Toast.makeText(getContext(), "You selected a " + track.getTrackName(), Toast.LENGTH_SHORT).show();
                 }

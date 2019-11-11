@@ -47,7 +47,6 @@ public class PlayerFragment extends Fragment{
 
     private final static String TAG = "myTag";
 
-    private Button button;
     private SimpleExoPlayer exoPlayer;
     private SeekBar seekPlayerProgress;
     private Handler handler;
@@ -60,24 +59,19 @@ public class PlayerFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //View view = inflater.inflate(R.layout.fragment_player, null);
 
         FragmentPlayerBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_player, container, false);
         View view = binding.getRoot();
 
         viewModel = ViewModelProviders.of(getActivity()).get(TrackViewModel.class);
-        if (savedInstanceState == null) {
-            viewModel.init();
-        }
         binding.setViewModel(viewModel);
 
         btnPlay = (ImageButton) view.findViewById(R.id.btnPlay);
         txtCurrentTime = (TextView) view.findViewById(R.id.time_current);
         txtEndTime = (TextView) view.findViewById(R.id.player_end_time);
         seekPlayerProgress = (SeekBar) view.findViewById(R.id.mediacontroller_progress);
-
-        //prepareExoPlayerFromURL("https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/9a/ab/9f/9aab9f41-0821-de62-78cf-43e0c08add62/mzaf_6566316355195832.plus.aac.p.m4a");
+        
         prepareExoPlayerFromURL(viewModel.getSelected().getValue().getTrackUrl());
 
         return view;
@@ -86,7 +80,9 @@ public class PlayerFragment extends Fragment{
 
     @Override
     public void onDestroy() {
+
         super.onDestroy();
+        setPlayPause(false);
     }
 
     /**
@@ -111,6 +107,7 @@ public class PlayerFragment extends Fragment{
 
         exoPlayer.prepare(audioSource);
         initMediaControls();
+
     }
 
     private void initMediaControls() {
@@ -164,7 +161,6 @@ public class PlayerFragment extends Fragment{
     }
 
     private void setProgress() {
-        seekPlayerProgress.setProgress(0);
         seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
         txtCurrentTime.setText(stringForTime((int)exoPlayer.getCurrentPosition()));
         txtEndTime.setText(stringForTime((int)exoPlayer.getDuration()));
@@ -271,5 +267,6 @@ public class PlayerFragment extends Fragment{
             Log.i(TAG,"onPositionDiscontinuity");
         }
     };
+
 
 }

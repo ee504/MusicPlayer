@@ -42,7 +42,7 @@
                 android:id="@+id/tvNameSong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.getTrackAt(position).trackName}"
+                android:text="@{viewModel.getSelected().getValue().trackName}"
                 android:textSize="30dp"
                 android:gravity="center"
                 android:textColor="@android:color/white" />
@@ -51,7 +51,7 @@
                 android:id="@+id/tvAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.getTrackAt(position).artistName}"
+                android:text="@{viewModel.getSelected().getValue().artistName}"
                 android:textSize="20dp"
                 android:gravity="center"
                 android:layout_below="@+id/tvNameSong"

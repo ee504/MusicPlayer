@@ -34,15 +34,9 @@ public class TrackViewModel extends ViewModel {
     }
 
     public void onTextChanged(CharSequence s, int start, int before, int count){
-        Log.d(TAG, "s: " + s);
-        Log.d(TAG, "start: " + start);
-        Log.d(TAG, "before: " + before);
-        Log.d(TAG, "count: " + count);
 
         if(s.length() > 4){
             ItunesSongApi apiService = RetrofitClient.getClient().create(ItunesSongApi.class);
-            //String abba = "ABBA";
-            // Fetching all notes
             apiService.fetchTracks5(s.toString(), "music", "200")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -62,32 +56,13 @@ public class TrackViewModel extends ViewModel {
         }
         if(s.length() < 5 && before > 4){
             Log.d(TAG, "here: ");
-            //tracks.setValue(new ArrayList<Track>());
             clearAdapter();
         }
     }
 
-    public void fetchList() {
-        /*ItunesSongApi apiService = RetrofitClient.getClient().create(ItunesSongApi.class);
-        String abba = "ABBA";
-        // Fetching all notes
-        apiService.fetchTracks5(abba, "music", "200")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<ItunesResponse>() {
-                    @Override
-                    public void onSuccess(ItunesResponse itunesResponse) {
-                        Log.d(TAG, "resultCount: " + itunesResponse.getResultCount());
-                        tracks.setValue(itunesResponse.getListOfTracks());
-                    }
+    //public void fetchList() {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        // Network error
-                        Log.d(TAG, "onError: " + e.getMessage());
-                    }
-                });*/
-    }
+    //}
 
     public MutableLiveData<List<Track>> getTracks() {
         return tracks;
@@ -122,11 +97,7 @@ public class TrackViewModel extends ViewModel {
             return tracks.getValue().get(index);
         }
         return null;
-        /*if (index != null &&
-                tracks.size() > index) {
-            return tracks.get(index);
-        }
-        return null;*/
+
     }
 
     public void clearAdapter() {
@@ -136,7 +107,4 @@ public class TrackViewModel extends ViewModel {
         this.adapter.notifyDataSetChanged();
 
     }
-
-    //public void fetchTrackImagesAt(Integer position) {
-    //}
 }
