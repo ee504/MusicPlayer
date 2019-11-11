@@ -66,7 +66,7 @@ public class PlayerFragment extends Fragment{
                 inflater, R.layout.fragment_player, container, false);
         View view = binding.getRoot();
 
-        viewModel = ViewModelProviders.of(this).get(TrackViewModel.class);
+        viewModel = ViewModelProviders.of(getActivity()).get(TrackViewModel.class);
         if (savedInstanceState == null) {
             viewModel.init();
         }

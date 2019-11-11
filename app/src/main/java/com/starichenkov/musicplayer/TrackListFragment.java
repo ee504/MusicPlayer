@@ -32,7 +32,7 @@ public class TrackListFragment extends Fragment {
                 inflater, R.layout.fragment_song_list, container, false);
         View view = binding.getRoot();
 
-        viewModel = ViewModelProviders.of(this).get(TrackViewModel.class);
+        viewModel = ViewModelProviders.of(getActivity()).get(TrackViewModel.class);
         if (savedInstanceState == null) {
             viewModel.init();
         }
