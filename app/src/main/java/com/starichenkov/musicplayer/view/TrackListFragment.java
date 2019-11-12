@@ -43,7 +43,7 @@ public class TrackListFragment extends Fragment {
 
         return view;
     }
-
+    //отслеживание изменения списка
     private void setupListUpdate() {
         //viewModel.loading.set(View.VISIBLE);
         //viewModel.fetchList();
@@ -58,7 +58,7 @@ public class TrackListFragment extends Fragment {
         });
 
     }
-
+    //отслеживание клика(перенес в активность)
     private void setupListClick() {
         viewModel.getSelected().observe(this, new Observer<Track>() {
             @Override

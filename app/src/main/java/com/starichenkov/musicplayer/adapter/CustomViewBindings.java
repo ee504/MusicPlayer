@@ -13,6 +13,7 @@ public class CustomViewBindings {
 
     private final static String TAG = "myTag";
 
+    //привязка адаптера
     @BindingAdapter("setAdapter")
     public static void bindRecyclerViewAdapter(RecyclerView recyclerView, RecyclerView.Adapter<?> adapter) {
         //Log.d(TAG, "setAdapter");
@@ -21,10 +22,13 @@ public class CustomViewBindings {
         recyclerView.setAdapter(adapter);
     }
 
+    //скачивает и устанавливает превью в списке треков
     @BindingAdapter("imageUrl")
     public static void bindRecyclerViewAdapter(ImageView imageView, String imageUrl) {
         Picasso.get().load(imageUrl).placeholder(R.drawable.vinyl_record_60x60).error(R.drawable.vinyl_record_60x60).into(imageView);
     }
+
+    //скачивает и устанавливает обложку в плееере
     @BindingAdapter("imageUrlBig")
     public static void bindImageView(ImageView imageView, String imageUrl) {
         Picasso.get().load(imageUrl.replace("60x60bb", "375x375bb")).placeholder(R.drawable.vinyl_record_500x500).error(R.drawable.vinyl_record_500x500).into(imageView);

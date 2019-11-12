@@ -92,19 +92,5 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
         return tracks == null ? 0 : tracks.size();
     }
 
-    public void filter(String text) {
-        /*events.clear();
-        if(text.isEmpty()){
-            events.addAll(eventsCopy);
-        } else{
-            text = text.toLowerCase();
-            for(Events event: eventsCopy){
-                if(event.getNameEvent().toLowerCase().contains(text)){
-                    events.add(event);
-                }
-            }
-        }
-        notifyDataSetChanged();*/
-    }
 
 }

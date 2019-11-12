@@ -17,7 +17,9 @@ public class MainActivity extends FragmentActivity{
 
     private final static String TAG = "myTag";
 
+    //список треков
     private Fragment mTrackListFragment;
+    //воспроизведение трека
     private Fragment mPlayerFragment;
     private TrackViewModel viewModel;
 
@@ -41,12 +43,10 @@ public class MainActivity extends FragmentActivity{
         fTrans.add(R.id.frgmMain, mTrackListFragment)
                 .show(mTrackListFragment)
                 .commit();
-        //getSupportFragmentManager().popBackStackImmediate();
         getSupportFragmentManager().executePendingTransactions();
     }
 
     private void setBindings(Bundle savedInstanceState){
-        //ActivityMainBinding activityBinding = DataBindingUtil.setContentView(this, R.layout.fragment_song_list);
         viewModel = ViewModelProviders.of(this).get(TrackViewModel.class);
         if (savedInstanceState == null) {
             viewModel.init();
@@ -55,6 +55,7 @@ public class MainActivity extends FragmentActivity{
         setupListClick();
     }
 
+    //обработчик нажатия на трек в списке
     private void setupListClick() {
         viewModel.getSelected().observe(this, new Observer<Track>() {
             @Override
@@ -66,34 +67,15 @@ public class MainActivity extends FragmentActivity{
                     fTrans.replace(R.id.frgmMain, mPlayerFragment)
                             .addToBackStack(null)
                             .commit();
-                    //FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
-                    //fTrans.add(R.id.frgmPlayer, mPlayerFragment)
-                            //.show(mPlayerFragment)
-                            //.commit();
-                    //getSupportFragmentManager().popBackStackImmediate();
-                    //getSupportFragmentManager().executePendingTransactions();
-                    //FrameLayout frame = (FrameLayout) findViewById(R.id.frgmMain);
-                    //commonCardContainer.setLayoutParams(new FrameLayout.LayoutParams(100,100));
-                    //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(400);
-                    //frame.setLayoutParams(lp);
                 }
             }
         });
     }
 
+    //открывает фрагмент с воспроизведением трека
     public void openTrack(){
         Log.d(TAG, "OpenPlaceAutocomplete");
-        //currentFragment = "bookMarksListFragment";
         FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
-        //fTrans.add(R.id.frgmCreateEvent, bookMarksListFragment)
-        //.addToBackStack(null)
-        //.hide(mapFragment)
-        //.show(bookMarksListFragment)
-        //.commit();
-        //fTrans.replace(R.id.frgmCreateEvent, bookMarksListFragment)
-        //.addToBackStack(null)
-        //.commit();
-        //presenter.getEventsFromBookmarks();
         fTrans.replace(R.id.frgmMain, mPlayerFragment)
                 .addToBackStack(null)
                 .commit();

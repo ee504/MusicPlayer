@@ -86,6 +86,7 @@ public class PlayerFragment extends Fragment{
      * popular audiofile types (.mp3, .m4a,...)
      * @param track
      */
+    //подготовка плеера
     private void prepareExoPlayerFromURL(String track){
 
         Uri uri = Uri.parse(track);
@@ -107,6 +108,7 @@ public class PlayerFragment extends Fragment{
 
     }
 
+    //настройка элементов управления
     private void initMediaControls() {
         initPlayButton();
         initSeekBar();
@@ -136,7 +138,7 @@ public class PlayerFragment extends Fragment{
             btnPlay.setImageResource(R.drawable.ic_pause_circle_filled_black_90dp);
         }
     }
-
+    //для отображения даты
     private String stringForTime(int timeMs) {
         StringBuilder mFormatBuilder;
         Formatter mFormatter;
@@ -155,7 +157,7 @@ public class PlayerFragment extends Fragment{
             return mFormatter.format("%02d:%02d", minutes, seconds).toString();
         }
     }
-
+    //динамический прогресс бар
     private void setProgress() {
         seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
         txtCurrentTime.setText(stringForTime((int)exoPlayer.getCurrentPosition()));

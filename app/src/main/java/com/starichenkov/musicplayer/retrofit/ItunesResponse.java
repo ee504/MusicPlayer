@@ -22,8 +22,10 @@ public class ItunesResponse {
         this.listOfTracks = listOfTracks;
     }
 
+    //счетчик выгруженных треков
     @SerializedName("resultCount")
     private String resultCount;
+    //список треков с параметрами
     @SerializedName("results")
     private List<Track> listOfTracks;
 }

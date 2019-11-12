@@ -36,12 +36,12 @@ public class TrackViewModel extends ViewModel {
         selected = new MutableLiveData<>();
         showEmpty = new ObservableInt(View.GONE);
     }
-
+    //поиск при изменении текста
     public void onTextChanged(CharSequence s, int start, int before, int count){
 
         if(s.length() > 4){
             ItunesSongApi apiService = RetrofitClient.getClient().create(ItunesSongApi.class);
-            apiService.fetchTracks5(s.toString(), "music", "200")
+            apiService.fetchTracks(s.toString(), "music", "200")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableSingleObserver<ItunesResponse>() {
@@ -76,6 +76,7 @@ public class TrackViewModel extends ViewModel {
         return adapter;
     }
 
+    //установка новых данных
     public void setTracksInAdapter(List<Track> tracks) {
         Log.d(TAG, "setTracksInAdapter");
         this.adapter.setTrackList(tracks);
@@ -93,7 +94,7 @@ public class TrackViewModel extends ViewModel {
         selected.setValue(track);
         //selected = track;
     }
-
+    //получение трека в позиции
     public Track getTrackAt(Integer index) {
         if (tracks.getValue() != null &&
                 index != null &&
@@ -103,7 +104,7 @@ public class TrackViewModel extends ViewModel {
         return null;
 
     }
-
+    //очистка списка
     public void clearAdapter() {
         Log.d(TAG, "here: ");
         tracks.setValue(new ArrayList<Track>());
