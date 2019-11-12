@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
     <activity
-        android:name=".MyView.MainActivity"
+        android:name=".view.MainActivity"
         android:label="Main"
         android:configChanges="orientation|screenSize|layoutDirection">
         <intent-filter>

@@ -1,4 +1,4 @@
-package com.starichenkov.musicplayer.Retrofit;
+package com.starichenkov.musicplayer.retrofit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

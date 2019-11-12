@@ -1,12 +1,9 @@
-package com.starichenkov.musicplayer.Retrofit;
+package com.starichenkov.musicplayer.retrofit;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
-import android.widget.ImageView;
 
 import com.google.gson.annotations.SerializedName;
-import com.squareup.picasso.Picasso;
 import com.starichenkov.musicplayer.BR;
 
 public class Track extends BaseObservable {

@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data class="FragmentSongListBin">
+    <data >
 
         <variable
             name="viewModel"
-            type="com.starichenkov.musicplayer.ViewModel.TrackViewModel" />
+            type="com.starichenkov.musicplayer.viewmodel.TrackViewModel" />
     </data>
 
     <LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyView.TrackListFragment">
+    tools:context=".view.TrackListFragment">
 
     <LinearLayout
         android:orientation="horizontal"

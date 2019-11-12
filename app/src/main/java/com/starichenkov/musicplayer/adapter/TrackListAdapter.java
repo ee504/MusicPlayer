@@ -1,4 +1,4 @@
-package com.starichenkov.musicplayer.Adapter;
+package com.starichenkov.musicplayer.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.starichenkov.musicplayer.BR;
-import com.starichenkov.musicplayer.Retrofit.Track;
-import com.starichenkov.musicplayer.ViewModel.TrackViewModel;
+import com.starichenkov.musicplayer.retrofit.Track;
+import com.starichenkov.musicplayer.viewmodel.TrackViewModel;
 
 import java.util.List;
 

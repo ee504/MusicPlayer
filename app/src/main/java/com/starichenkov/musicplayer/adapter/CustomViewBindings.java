@@ -1,17 +1,11 @@
-package com.starichenkov.musicplayer.Adapter;
+package com.starichenkov.musicplayer.adapter;
 
 import android.databinding.BindingAdapter;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.starichenkov.musicplayer.R;
 
 

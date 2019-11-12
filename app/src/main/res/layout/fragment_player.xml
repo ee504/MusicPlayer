@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data class="FragmentPlayerBin">
+    <data>
 
         <variable
             name="playFragment"
-            type="com.starichenkov.musicplayer.MyView.PlayerFragment" />
+            type="com.starichenkov.musicplayer.view.PlayerFragment" />
 
         <variable
             name="viewModel"
-            type="com.starichenkov.musicplayer.ViewModel.TrackViewModel" />
+            type="com.starichenkov.musicplayer.viewmodel.TrackViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MyView.PlayerFragment">
+        tools:context=".view.PlayerFragment">
 
 
         <ImageView

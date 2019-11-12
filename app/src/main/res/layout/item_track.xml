@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <data class="ItemTrackBin">
+    <data>
         <variable
             name="position"
             type="java.lang.Integer" />
 
         <variable
             name="viewModel"
-            type="com.starichenkov.musicplayer.ViewModel.TrackViewModel" />
+            type="com.starichenkov.musicplayer.viewmodel.TrackViewModel" />
     </data>
 
     <LinearLayout
@@ -52,14 +52,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.getTrackAt(position).trackName}"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:maxLines="1"/>
 
                 <TextView
                     android:id="@+id/tvNameAuthor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.getTrackAt(position).artistName}"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:maxLines="1"/>/>
 
             </LinearLayout>
 

@@ -1,7 +1,6 @@
-package com.starichenkov.musicplayer.Retrofit;
+package com.starichenkov.musicplayer.retrofit;
 
 import com.google.gson.annotations.SerializedName;
-import com.starichenkov.musicplayer.Retrofit.Track;
 
 import java.util.List;
 

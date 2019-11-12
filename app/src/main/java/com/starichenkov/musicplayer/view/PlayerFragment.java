@@ -1,4 +1,4 @@
-package com.starichenkov.musicplayer.MyView;
+package com.starichenkov.musicplayer.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -32,8 +32,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.starichenkov.musicplayer.R;
-import com.starichenkov.musicplayer.ViewModel.TrackViewModel;
-import com.starichenkov.musicplayer.databinding.FragmentPlayerBin;
+import com.starichenkov.musicplayer.viewmodel.TrackViewModel;
+import com.starichenkov.musicplayer.databinding.FragmentPlayerBinding;
 
 import java.util.Formatter;
 import java.util.Locale;
@@ -56,7 +56,7 @@ public class PlayerFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        FragmentPlayerBin binding = DataBindingUtil.inflate(
+        FragmentPlayerBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_player, container, false);
         View view = binding.getRoot();
 
