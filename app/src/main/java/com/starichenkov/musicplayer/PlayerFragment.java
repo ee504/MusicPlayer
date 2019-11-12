@@ -1,9 +1,11 @@
 package com.starichenkov.musicplayer;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,8 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -32,12 +34,11 @@ import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.FileDataSource;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.starichenkov.musicplayer.databinding.FragmentPlayerBinding;
-import com.starichenkov.musicplayer.databinding.FragmentSongListBinding;
 
 import java.util.Formatter;
 import java.util.Locale;
@@ -71,7 +72,7 @@ public class PlayerFragment extends Fragment{
         txtCurrentTime = (TextView) view.findViewById(R.id.time_current);
         txtEndTime = (TextView) view.findViewById(R.id.player_end_time);
         seekPlayerProgress = (SeekBar) view.findViewById(R.id.mediacontroller_progress);
-        
+
         prepareExoPlayerFromURL(viewModel.getSelected().getValue().getTrackUrl());
 
         return view;
@@ -116,7 +117,6 @@ public class PlayerFragment extends Fragment{
     }
 
     private void initPlayButton() {
-        //btnPlay = (ImageButton) findViewById(R.id.btnPlay);
         btnPlay.requestFocus();
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,10 +134,10 @@ public class PlayerFragment extends Fragment{
         isPlaying = play;
         exoPlayer.setPlayWhenReady(play);
         if(!isPlaying){
-            btnPlay.setImageResource(android.R.drawable.ic_media_play);
+            btnPlay.setImageResource(R.drawable.ic_play_circle_filled_black_90dp);
         }else{
             setProgress();
-            btnPlay.setImageResource(android.R.drawable.ic_media_pause);
+            btnPlay.setImageResource(R.drawable.ic_pause_circle_filled_black_90dp);
         }
     }
 
@@ -166,7 +166,6 @@ public class PlayerFragment extends Fragment{
         txtEndTime.setText(stringForTime((int)exoPlayer.getDuration()));
 
         if(handler == null)handler = new Handler();
-        //Make sure you update Seekbar on UI thread
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -191,28 +190,19 @@ public class PlayerFragment extends Fragment{
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (!fromUser) {
-                    // We're not interested in programmatically generated changes to
-                    // the progress bar's position.
                     return;
                 }
-
                 exoPlayer.seekTo(progress*1000);
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
+            public void onStartTrackingTouch(SeekBar seekBar) { }
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
         seekPlayerProgress.setMax(0);
         seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
-
     }
 
     private ExoPlayer.EventListener eventListener = new ExoPlayer.EventListener() {
@@ -233,15 +223,11 @@ public class PlayerFragment extends Fragment{
 
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-            Log.i(TAG,"onPlayerStateChanged: playWhenReady = "+String.valueOf(playWhenReady)
-                    +" playbackState = "+playbackState);
             switch (playbackState){
                 case ExoPlayer.STATE_ENDED:
                     Log.i(TAG,"Playback ended!");
-                    //Stop playback and return to start position
                     setPlayPause(false);
                     exoPlayer.seekTo(0);
-                    //setProgress();
                     break;
                 case ExoPlayer.STATE_READY:
                     Log.i(TAG,"ExoPlayer ready! pos: "+exoPlayer.getCurrentPosition()

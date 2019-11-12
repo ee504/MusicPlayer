@@ -64,17 +64,17 @@ public class MainActivity extends FragmentActivity{
                 Log.d(TAG, "onChanged(): activity");
                 if (track != null) {
                     //Toast.makeText(MainActivity.this, "Main Activity You selected a " + track.getTrackName(), Toast.LENGTH_SHORT).show();
-                    /*FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
                     fTrans.replace(R.id.frgmMain, mPlayerFragment)
                             .addToBackStack(null)
-                            .commit();*/
-                    FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
-                    fTrans.add(R.id.frgmPlayer, mPlayerFragment)
-                            .show(mPlayerFragment)
                             .commit();
+                    //FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+                    //fTrans.add(R.id.frgmPlayer, mPlayerFragment)
+                            //.show(mPlayerFragment)
+                            //.commit();
                     //getSupportFragmentManager().popBackStackImmediate();
-                    getSupportFragmentManager().executePendingTransactions();
-                    FrameLayout frame = (FrameLayout) findViewById(R.id.frgmMain);
+                    //getSupportFragmentManager().executePendingTransactions();
+                    //FrameLayout frame = (FrameLayout) findViewById(R.id.frgmMain);
                     //commonCardContainer.setLayoutParams(new FrameLayout.LayoutParams(100,100));
                     //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(400);
                     //frame.setLayoutParams(lp);

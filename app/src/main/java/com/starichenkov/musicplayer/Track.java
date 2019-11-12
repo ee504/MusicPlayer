@@ -16,8 +16,6 @@ public class Track extends BaseObservable {
     private String trackName;
     @SerializedName("artworkUrl60")
     private String trackCover;
-    @SerializedName("artworkUrl100")
-    private String trackCover100;
     @SerializedName("previewUrl")
     private String trackUrl;
 
@@ -66,10 +64,5 @@ public class Track extends BaseObservable {
                 .into(imageView);
     }*/
 
-    public Track(String trackName, String artistName, String trackCover){
-        this.trackName = trackName;
-        this.artistName = artistName;
-        this.trackCover = trackCover;
-    }
 
 }

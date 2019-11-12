@@ -19,24 +19,23 @@
         android:layout_height="match_parent"
         tools:context=".PlayerFragment">
 
-        <LinearLayout
-            android:id="@+id/llCover"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:background="@drawable/vinyl_record_500x500"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true">
 
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/ivSong"
+            android:layout_width="375dp"
+            android:layout_height="375dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            app:imageUrlBig="@{viewModel.getSelected().getValue().trackCover}"/>
 
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_below="@+id/llCover">
+            android:layout_marginTop="45dp"
+            android:layout_below="@+id/ivSong">
 
             <TextView
                 android:id="@+id/tvNameSong"
@@ -62,6 +61,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
             android:background="#CC000000"
             android:orientation="vertical"
             android:id="@+id/media_controller"
@@ -71,22 +71,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="4dip"
-                android:orientation="horizontal">
-
-                <ImageButton android:id="@+id/btnPlay"
-                    style="@android:style/MediaButton.Play"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp">
 
                 <TextView android:id="@+id/time_current"
                     android:textSize="14sp"
@@ -105,7 +91,11 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dip"
                     android:layout_weight="1"
-                    android:layout_height="32dip" />
+                    android:layout_height="32dip"
+                    android:progressTint="@color/colorWhite"
+                    android:thumbTint="@color/colorWhite"
+                    android:backgroundTint="@color/colorGrey"
+                    android:progressBackgroundTint="@color/colorGrey"/>
 
                 <TextView android:id="@+id/player_end_time"
                     android:textSize="14sp"
@@ -119,15 +109,19 @@
                     android:textColor="#ffffff"
                     android:text="99:99" />
 
-                <ImageButton android:id="@+id/fullscreen"
-                    android:layout_marginTop="-7dp"
-                    android:paddingTop="4dip"
-                    android:paddingBottom="4dip"
-                    android:paddingLeft="10dip"
-                    android:paddingRight="4dip"
-                    android:layout_gravity="top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="4dip"
+                android:orientation="horizontal">
+
+                <ImageButton android:id="@+id/btnPlay"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/ic_play_circle_filled_black_90dp"
                     android:background="@android:color/transparent"
                     />
 

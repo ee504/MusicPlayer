@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:id = "@+id/llSongs"
         android:clickable="true"
+        android:background="@drawable/button_effect"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_margin="3dp"
         android:onClick="@{() -> viewModel.onItemClick(position)}"
