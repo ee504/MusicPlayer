@@ -1,4 +1,4 @@
-package com.starichenkov.musicplayer;
+package com.starichenkov.musicplayer.Adapter;
 
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.starichenkov.musicplayer.R;
 
 
 public class CustomViewBindings {

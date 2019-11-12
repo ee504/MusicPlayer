@@ -1,10 +1,7 @@
-package com.starichenkov.musicplayer;
+package com.starichenkov.musicplayer.MyView;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.starichenkov.musicplayer.databinding.FragmentSongListBinding;
+import com.starichenkov.musicplayer.R;
+import com.starichenkov.musicplayer.Retrofit.Track;
+import com.starichenkov.musicplayer.ViewModel.TrackViewModel;
+import com.starichenkov.musicplayer.databinding.FragmentSongListBin;
 
 import java.util.List;
 

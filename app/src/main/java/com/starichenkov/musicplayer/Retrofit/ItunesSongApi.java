@@ -1,6 +1,4 @@
-package com.starichenkov.musicplayer;
-
-import android.database.Observable;
+package com.starichenkov.musicplayer.Retrofit;
 
 import java.util.List;
 

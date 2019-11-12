@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <data>
+    <data class="ItemTrackBin">
         <variable
             name="position"
             type="java.lang.Integer" />
 
         <variable
             name="viewModel"
-            type="com.starichenkov.musicplayer.TrackViewModel" />
+            type="com.starichenkov.musicplayer.ViewModel.TrackViewModel" />
     </data>
 
     <LinearLayout

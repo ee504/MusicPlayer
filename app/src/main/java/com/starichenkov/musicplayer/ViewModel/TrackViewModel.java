@@ -1,4 +1,4 @@
-package com.starichenkov.musicplayer;
+package com.starichenkov.musicplayer.ViewModel;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
@@ -6,11 +6,15 @@ import android.databinding.ObservableInt;
 import android.util.Log;
 import android.view.View;
 
-import com.starichenkov.musicplayer.TrackListAdapter;
+import com.starichenkov.musicplayer.Adapter.TrackListAdapter;
+import com.starichenkov.musicplayer.R;
+import com.starichenkov.musicplayer.Retrofit.ItunesResponse;
+import com.starichenkov.musicplayer.Retrofit.ItunesSongApi;
+import com.starichenkov.musicplayer.Retrofit.RetrofitClient;
+import com.starichenkov.musicplayer.Retrofit.Track;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;

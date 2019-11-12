@@ -1,11 +1,7 @@
-package com.starichenkov.musicplayer;
+package com.starichenkov.musicplayer.MyView;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -36,9 +31,9 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-import com.starichenkov.musicplayer.databinding.FragmentPlayerBinding;
+import com.starichenkov.musicplayer.R;
+import com.starichenkov.musicplayer.ViewModel.TrackViewModel;
+import com.starichenkov.musicplayer.databinding.FragmentPlayerBin;
 
 import java.util.Formatter;
 import java.util.Locale;
@@ -61,7 +56,7 @@ public class PlayerFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        FragmentPlayerBinding binding = DataBindingUtil.inflate(
+        FragmentPlayerBin binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_player, container, false);
         View view = binding.getRoot();
 
@@ -108,6 +103,7 @@ public class PlayerFragment extends Fragment{
 
         exoPlayer.prepare(audioSource);
         initMediaControls();
+        setPlayPause(true);
 
     }
 

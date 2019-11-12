@@ -1,18 +1,16 @@
-package com.starichenkov.musicplayer;
+package com.starichenkov.musicplayer.MyView;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.starichenkov.musicplayer.databinding.ActivityMainBinding;
+import com.starichenkov.musicplayer.R;
+import com.starichenkov.musicplayer.Retrofit.Track;
+import com.starichenkov.musicplayer.ViewModel.TrackViewModel;
 
 
 public class MainActivity extends FragmentActivity{

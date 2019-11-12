@@ -1,6 +1,5 @@
-package com.starichenkov.musicplayer;
+package com.starichenkov.musicplayer.Adapter;
 
-import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
@@ -8,6 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import com.starichenkov.musicplayer.BR;
+import com.starichenkov.musicplayer.Retrofit.Track;
+import com.starichenkov.musicplayer.ViewModel.TrackViewModel;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.starichenkov.musicplayer;
+package com.starichenkov.musicplayer.Player;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
