@@ -38,7 +38,10 @@ import com.starichenkov.musicplayer.databinding.FragmentPlayerBinding;
 import java.util.Formatter;
 import java.util.Locale;
 
-
+/*
+    1. Перенести плеер во фрагмент
+    2. Настроить связь через нотификацию(broadcastreceiver???)
+ */
 public class PlayerFragment extends Fragment{
 
     private final static String TAG = "myTag";
