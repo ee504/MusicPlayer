@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+    <service
+        android:name=".playerService.PlayerService"
+        android:enabled="true"
+        android:exported="true"></service>
+
     <activity
         android:name=".view.MainActivity"
         android:label="Main"
@@ -24,5 +29,6 @@
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
 </manifest>

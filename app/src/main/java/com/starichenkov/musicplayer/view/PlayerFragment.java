@@ -1,11 +1,13 @@
 package com.starichenkov.musicplayer.view;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.starichenkov.musicplayer.R;
+import com.starichenkov.musicplayer.playerService.PlayerService;
 import com.starichenkov.musicplayer.viewmodel.TrackViewModel;
 import com.starichenkov.musicplayer.databinding.FragmentPlayerBinding;
 
@@ -39,8 +42,9 @@ import java.util.Formatter;
 import java.util.Locale;
 
 /*
-    1. Перенести плеер во фрагмент
-    2. Настроить связь через нотификацию(broadcastreceiver???)
+    1. Перенести плеер во фрагмент(Done)
+    2. Перенести активацию плеера во ViewModel
+    3. Настроить связь через нотификацию(broadcastreceiver???)
  */
 public class PlayerFragment extends Fragment{
 
@@ -107,7 +111,7 @@ public class PlayerFragment extends Fragment{
 
         exoPlayer.prepare(audioSource);
         initMediaControls();
-        setPlayPause(true);
+        //setPlayPause(true);
 
     }
 
@@ -133,14 +137,29 @@ public class PlayerFragment extends Fragment{
      */
     private void setPlayPause(boolean play){
         isPlaying = play;
-        exoPlayer.setPlayWhenReady(play);
+        //exoPlayer.setPlayWhenReady(play);
         if(!isPlaying){
             btnPlay.setImageResource(R.drawable.ic_play_circle_filled_black_90dp);
+            stopService();
         }else{
             setProgress();
             btnPlay.setImageResource(R.drawable.ic_pause_circle_filled_black_90dp);
+            startService(viewModel.getSelected().getValue().getTrackUrl());
         }
     }
+
+    private void stopService() {
+        Intent serviceIntent = new Intent(getActivity(), PlayerService.class);
+        getActivity().stopService(serviceIntent);
+    }
+
+    private void startService(String track) {
+        Intent serviceIntent = new Intent(getActivity(), PlayerService.class);
+        serviceIntent.putExtra("inputExtra", track);
+
+        ContextCompat.startForegroundService(getActivity(), serviceIntent);
+    }
+
     //для отображения даты
     private String stringForTime(int timeMs) {
         StringBuilder mFormatBuilder;
