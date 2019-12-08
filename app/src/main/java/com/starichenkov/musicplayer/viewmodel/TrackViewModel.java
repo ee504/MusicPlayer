@@ -44,6 +44,7 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
 
     private final String TAG = "myTag";
 
+    //переменные для обновления полей в fragment_song_list
     private MutableLiveData<List<Track>> tracks;
     private TrackListAdapter adapter;
     private MutableLiveData<Track> selected;
@@ -52,8 +53,10 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
     private PlayerService mService;
     private boolean mBound = false;
 
+    //отслеживание активности плеера
     private boolean isPlaying = false;
 
+    //переменные для обновления полей в fragment_player
     public ObservableField<String> currentTrackTime = new ObservableField<>("00:00");
     public ObservableField<String> trackTime = new ObservableField<>("30:00");
     public ObservableInt sizeBarMax = new ObservableInt(30);
@@ -121,7 +124,6 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         Track track = getTrackAt(index);
         Log.d(TAG, "track: " + track.getTrackName());
         selected.setValue(track);
-        //selected = track;
     }
     //получение трека в позиции
     public Track getTrackAt(Integer index) {
@@ -145,12 +147,10 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
     public void clickOnPlayButton(View view){
         ImageView imageView = (ImageView)view;
         if(isPlaying){
-            Log.d(TAG, "isPlaying true ");
             imageView.setImageResource(R.drawable.ic_play_circle_filled_black_90dp);
             mService.setPlayPausePlayer(false);
             isPlaying = false;
         }else{
-            Log.d(TAG, "isPlaying false ");
             imageView.setImageResource(R.drawable.ic_pause_circle_filled_black_90dp);
             mService.setPlayPausePlayer(true);
             isPlaying = true;
@@ -162,7 +162,6 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         intent.putExtra("inputExtra", selected.getValue().getTrackUrl());
         getApplication().bindService(intent, connection, Context.BIND_AUTO_CREATE);
         isPlaying = true;
-
     }
 
     public void stopService(){
@@ -217,7 +216,7 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
     public void setPlayerTo(int value) {
         mService.setPlayerTo(value);
     }
-
+    //проверка на активность плеера
     public boolean checkForPlaying() {
         if(mService != null && isPlaying == true){
             return true;
@@ -225,6 +224,7 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         return false;
     }
 
+    //обновление прогресс бара
     public void updateProgress() {
 
         currentTrackTime.set(stringForTime((int) mService.getTrackCurrentPosition()));

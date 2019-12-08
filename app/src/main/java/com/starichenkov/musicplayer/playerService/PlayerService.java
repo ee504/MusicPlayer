@@ -26,9 +26,6 @@ public class PlayerService extends Service {
     private ExoPlayer exo;
     private final IBinder binder = new LocalBinder();
 
-    public void setPlayerTo(int value) {
-        exo.exoPlayer.seekTo(value);
-    }
 
     public class LocalBinder extends Binder {
         public PlayerService getService() {
@@ -47,16 +44,22 @@ public class PlayerService extends Service {
         return START_NOT_STICKY;
     }
 
+    //получить длительность трека
     public long getTrackDuration() {
         return exo.exoPlayer.getDuration();
     }
-
+    //получить текущую позицию
     public long getTrackCurrentPosition() {
         return exo.exoPlayer.getCurrentPosition();
     }
-
+    //пуск/пауза
     public void setPlayPausePlayer(boolean value){
         exo.exoPlayer.setPlayWhenReady(value);
+    }
+
+    //перемотка трека
+    public void setPlayerTo(int value) {
+        exo.exoPlayer.seekTo(value);
     }
 
     @Override

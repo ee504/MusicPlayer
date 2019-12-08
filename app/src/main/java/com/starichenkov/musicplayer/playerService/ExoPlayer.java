@@ -31,8 +31,6 @@ public class ExoPlayer {
     private DefaultDataSourceFactory dataSourceFactory;
     private ExtractorsFactory extractorsFactory;
 
-    private long currPosition = 0;
-
     //private boolean isPlaying = false;
 
     public ExoPlayer(Context context, String track){
@@ -49,13 +47,7 @@ public class ExoPlayer {
 
         exoPlayer.prepare(audioSource);
         exoPlayer.setPlayWhenReady(true);
-        //setPlayPause(true);
     }
-
-    //public void setPlayPause(boolean play){
-        //isPlaying = play;
-        //exoPlayer.setPlayWhenReady(play);
-    //}
 
     private com.google.android.exoplayer2.ExoPlayer.EventListener eventListener = new com.google.android.exoplayer2.ExoPlayer.EventListener() {
         @Override
