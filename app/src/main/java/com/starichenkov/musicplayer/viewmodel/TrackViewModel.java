@@ -1,13 +1,19 @@
 package com.starichenkov.musicplayer.viewmodel;
 
+import android.app.Activity;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModel;
+import android.content.Intent;
 import android.databinding.ObservableInt;
 import android.util.Log;
 import android.view.View;
 
 import com.starichenkov.musicplayer.adapter.TrackListAdapter;
 import com.starichenkov.musicplayer.R;
+import com.starichenkov.musicplayer.playerService.PlayerService;
 import com.starichenkov.musicplayer.retrofit.ItunesResponse;
 import com.starichenkov.musicplayer.retrofit.ItunesSongApi;
 import com.starichenkov.musicplayer.retrofit.RetrofitClient;
@@ -21,7 +27,7 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class TrackViewModel extends ViewModel {
+public class TrackViewModel extends ViewModel implements LifecycleObserver {
 
     private final String TAG = "myTag";
 
@@ -29,6 +35,8 @@ public class TrackViewModel extends ViewModel {
     private TrackListAdapter adapter;
     private MutableLiveData<Track> selected;
     public ObservableInt showEmpty;
+
+    private Intent serviceIntentPlayer;
 
     public void init(){
         tracks = new MutableLiveData<List<Track>>();
@@ -111,5 +119,15 @@ public class TrackViewModel extends ViewModel {
         this.adapter.setTrackList(tracks.getValue());
         this.adapter.notifyDataSetChanged();
 
+    }
+
+    public void clickOnPlayButton(View view){
+        Log.d(TAG, "clickOnPlayButton: " + view.getTransitionName());
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    protected void onLifecycleStart(Activity activity) {
+        this.serviceIntentPlayer = new Intent(activity, PlayerService.class);
+        activity.stopService(this.serviceIntentPlayer);
     }
 }

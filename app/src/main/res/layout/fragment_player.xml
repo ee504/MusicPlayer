@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="playFragment"
-            type="com.starichenkov.musicplayer.view.PlayerFragment" />
-
-        <variable
             name="viewModel"
             type="com.starichenkov.musicplayer.viewmodel.TrackViewModel" />
     </data>
@@ -121,8 +117,9 @@
                 <ImageButton android:id="@+id/btnPlay"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:src="@drawable/ic_play_circle_filled_black_90dp"
+                    android:src="@drawable/ic_pause_circle_filled_black_90dp"
                     android:background="@android:color/transparent"
+                    android:onClick="@{(view) -> viewModel.clickOnPlayButton(view)}"
                     />
 
             </LinearLayout>

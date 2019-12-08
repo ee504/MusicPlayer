@@ -70,12 +70,14 @@ public class PlayerFragment extends Fragment{
         viewModel = ViewModelProviders.of(getActivity()).get(TrackViewModel.class);
         binding.setViewModel(viewModel);
 
-        btnPlay = (ImageButton) view.findViewById(R.id.btnPlay);
+        getLifecycle().addObserver(viewModel);
+
+        //btnPlay = (ImageButton) view.findViewById(R.id.btnPlay);
         txtCurrentTime = (TextView) view.findViewById(R.id.time_current);
         txtEndTime = (TextView) view.findViewById(R.id.player_end_time);
         seekPlayerProgress = (SeekBar) view.findViewById(R.id.mediacontroller_progress);
 
-        prepareExoPlayerFromURL(viewModel.getSelected().getValue().getTrackUrl());
+        //prepareExoPlayerFromURL(viewModel.getSelected().getValue().getTrackUrl());
 
         return view;
     }
@@ -85,16 +87,16 @@ public class PlayerFragment extends Fragment{
     public void onDestroy() {
 
         super.onDestroy();
-        setPlayPause(false);
+        //setPlayPause(false);
     }
 
     /**
      * Prepares exoplayer for audio playback from a remote URL audiofile. Should work with most
      * popular audiofile types (.mp3, .m4a,...)
-     * @param track
+     * @param
      */
     //подготовка плеера
-    private void prepareExoPlayerFromURL(String track){
+   /* private void prepareExoPlayerFromURL(String track){
 
         Uri uri = Uri.parse(track);
 
@@ -113,15 +115,15 @@ public class PlayerFragment extends Fragment{
         initMediaControls();
         //setPlayPause(true);
 
-    }
+    }*/
 
     //настройка элементов управления
     private void initMediaControls() {
-        initPlayButton();
+        //initPlayButton();
         initSeekBar();
     }
 
-    private void initPlayButton() {
+    /*private void initPlayButton() {
         btnPlay.requestFocus();
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,13 +131,13 @@ public class PlayerFragment extends Fragment{
                 setPlayPause(!isPlaying);
             }
         });
-    }
+    }*/
 
     /**
      * Starts or stops playback. Also takes care of the Play/Pause button toggling
-     * @param play True if playback should be started
+     * play True if playback should be started
      */
-    private void setPlayPause(boolean play){
+    /*private void setPlayPause(boolean play){
         isPlaying = play;
         //exoPlayer.setPlayWhenReady(play);
         if(!isPlaying){
@@ -146,19 +148,19 @@ public class PlayerFragment extends Fragment{
             btnPlay.setImageResource(R.drawable.ic_pause_circle_filled_black_90dp);
             startService(viewModel.getSelected().getValue().getTrackUrl());
         }
-    }
+    }*/
 
-    private void stopService() {
+    /*private void stopService() {
         Intent serviceIntent = new Intent(getActivity(), PlayerService.class);
         getActivity().stopService(serviceIntent);
-    }
+    }*/
 
-    private void startService(String track) {
+    /*private void startService(String track) {
         Intent serviceIntent = new Intent(getActivity(), PlayerService.class);
         serviceIntent.putExtra("inputExtra", track);
 
         ContextCompat.startForegroundService(getActivity(), serviceIntent);
-    }
+    }*/
 
     //для отображения даты
     private String stringForTime(int timeMs) {
@@ -225,7 +227,7 @@ public class PlayerFragment extends Fragment{
         seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
     }
 
-    private ExoPlayer.EventListener eventListener = new ExoPlayer.EventListener() {
+    /*private ExoPlayer.EventListener eventListener = new ExoPlayer.EventListener() {
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
             Log.i(TAG,"onTimelineChanged");
@@ -272,7 +274,7 @@ public class PlayerFragment extends Fragment{
         public void onPositionDiscontinuity() {
             Log.i(TAG,"onPositionDiscontinuity");
         }
-    };
+    };*/
 
 
 }

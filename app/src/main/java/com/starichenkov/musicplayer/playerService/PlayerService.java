@@ -53,7 +53,7 @@ public class PlayerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        exo.setPlayPause(false);
+        //exo.setPlayPause(false);
     }
 
     @Nullable
