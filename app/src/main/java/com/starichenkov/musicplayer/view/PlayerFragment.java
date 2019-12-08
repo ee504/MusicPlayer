@@ -43,7 +43,7 @@ import java.util.Locale;
 
 /*
     1. Перенести плеер во фрагмент(Done)
-    2. Перенести активацию плеера во ViewModel
+    2. Перенести активацию плеера во ViewModel(Done)
     3. Настроить связь через нотификацию(broadcastreceiver???)
  */
 public class PlayerFragment extends Fragment{
@@ -72,21 +72,11 @@ public class PlayerFragment extends Fragment{
 
         getLifecycle().addObserver(viewModel);
 
-        //btnPlay = (ImageButton) view.findViewById(R.id.btnPlay);
         txtCurrentTime = (TextView) view.findViewById(R.id.time_current);
-        txtEndTime = (TextView) view.findViewById(R.id.player_end_time);
+        //txtEndTime = (TextView) view.findViewById(R.id.player_end_time);
         seekPlayerProgress = (SeekBar) view.findViewById(R.id.mediacontroller_progress);
 
-        //prepareExoPlayerFromURL(viewModel.getSelected().getValue().getTrackUrl());
-
         return view;
-    }
-
-    @Override
-    public void onDestroy() {
-
-        super.onDestroy();
-        //setPlayPause(false);
     }
 
     /**
@@ -119,7 +109,7 @@ public class PlayerFragment extends Fragment{
     //настройка элементов управления
     private void initMediaControls() {
         //initPlayButton();
-        initSeekBar();
+        //initSeekBar();
     }
 
     /*private void initPlayButton() {
@@ -182,20 +172,20 @@ public class PlayerFragment extends Fragment{
     }
     //динамический прогресс бар
     private void setProgress() {
-        seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
-        txtCurrentTime.setText(stringForTime((int)exoPlayer.getCurrentPosition()));
-        txtEndTime.setText(stringForTime((int)exoPlayer.getDuration()));
+        //seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
+        //txtCurrentTime.setText(stringForTime((int)exoPlayer.getCurrentPosition()));
+        //txtEndTime.setText(stringForTime((int)exoPlayer.getDuration()));
 
         if(handler == null)handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
                 if (exoPlayer != null && isPlaying) {
-                    seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
+                    //seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
                     int mCurrentPosition = (int) exoPlayer.getCurrentPosition() / 1000;
                     seekPlayerProgress.setProgress(mCurrentPosition);
                     txtCurrentTime.setText(stringForTime((int)exoPlayer.getCurrentPosition()));
-                    txtEndTime.setText(stringForTime((int)exoPlayer.getDuration()));
+                    //txtEndTime.setText(stringForTime((int)exoPlayer.getDuration()));
 
                     handler.postDelayed(this, 1000);
                 }
@@ -203,7 +193,7 @@ public class PlayerFragment extends Fragment{
         });
     }
 
-    private void initSeekBar() {
+    /*private void initSeekBar() {
 
         seekPlayerProgress.requestFocus();
 
@@ -224,7 +214,7 @@ public class PlayerFragment extends Fragment{
 
         seekPlayerProgress.setMax(0);
         seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
-    }
+    }*/
 
     /*private ExoPlayer.EventListener eventListener = new ExoPlayer.EventListener() {
         @Override

@@ -13,6 +13,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -30,7 +31,9 @@ import com.starichenkov.musicplayer.retrofit.RetrofitClient;
 import com.starichenkov.musicplayer.retrofit.Track;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -51,6 +54,10 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
 
     private boolean isPlaying = false;
 
+    public ObservableField<String> currentTrackTime;
+    public ObservableField<String> trackTime;
+    public ObservableInt sizeBarMax;
+
     public TrackViewModel(@NonNull Application application) {
         super(application);
     }
@@ -60,6 +67,9 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         adapter = new TrackListAdapter(R.layout.item_track, this);
         selected = new MutableLiveData<>();
         showEmpty = new ObservableInt(View.GONE);
+        currentTrackTime.set("00:00");
+        trackTime.set("30:00");
+        sizeBarMax.set(30);
     }
     //поиск при изменении текста
     public void onTextChanged(CharSequence s, int start, int before, int count){
@@ -125,6 +135,21 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         return null;
 
     }
+    //длина сайзбара
+    public int getSeekBarSize(){
+        //return (int) mService.getTrackDuration()/1000;
+        return 30;
+    }
+    //длина трека
+    public String getTrackDuration(){
+        //return stringForTime((int)mService.getTrackDuration());
+        return "30:00";
+    }
+    //текущая позиция в треке
+    public String getTrackCurrentPosition(){
+        //return stringForTime((int)mService.getTrackCurrentPosition());
+        return "00:00";
+    }
     //очистка списка
     public void clearAdapter() {
         Log.d(TAG, "here: ");
@@ -154,6 +179,9 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         intent.putExtra("inputExtra", selected.getValue().getTrackUrl());
         getApplication().bindService(intent, connection, Context.BIND_AUTO_CREATE);
         isPlaying = true;
+
+        trackTime.set(stringForTime((int)mService.getTrackDuration()));
+        sizeBarMax.set((int) mService.getTrackDuration()/1000);
     }
 
     public void stopService(){
@@ -184,4 +212,24 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
             mBound = false;
         }
     };
+
+    //для отображения времени
+    private String stringForTime(int timeMs) {
+        StringBuilder mFormatBuilder;
+        Formatter mFormatter;
+        mFormatBuilder = new StringBuilder();
+        mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
+        int totalSeconds =  timeMs / 1000;
+
+        int seconds = totalSeconds % 60;
+        int minutes = (totalSeconds / 60) % 60;
+        int hours   = totalSeconds / 3600;
+
+        mFormatBuilder.setLength(0);
+        if (hours > 0) {
+            return mFormatter.format("%d:%02d:%02d", hours, minutes, seconds).toString();
+        } else {
+            return mFormatter.format("%02d:%02d", minutes, seconds).toString();
+        }
+    }
 }

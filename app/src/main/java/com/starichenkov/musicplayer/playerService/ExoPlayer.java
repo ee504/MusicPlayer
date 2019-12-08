@@ -25,7 +25,7 @@ public class ExoPlayer {
 
     private final static String TAG = "myTag";
 
-    private SimpleExoPlayer exoPlayer;
+    SimpleExoPlayer exoPlayer;
     private TrackSelector trackSelector;
     private LoadControl loadControl;
     private DefaultDataSourceFactory dataSourceFactory;
@@ -33,7 +33,7 @@ public class ExoPlayer {
 
     private long currPosition = 0;
 
-    private boolean isPlaying = false;
+    //private boolean isPlaying = false;
 
     public ExoPlayer(Context context, String track){
 
@@ -48,13 +48,14 @@ public class ExoPlayer {
         exoPlayer.addListener(eventListener);
 
         exoPlayer.prepare(audioSource);
-        setPlayPause(true);
+        exoPlayer.setPlayWhenReady(true);
+        //setPlayPause(true);
     }
 
-    public void setPlayPause(boolean play){
-        isPlaying = play;
-        exoPlayer.setPlayWhenReady(play);
-    }
+    //public void setPlayPause(boolean play){
+        //isPlaying = play;
+        //exoPlayer.setPlayWhenReady(play);
+    //}
 
     private com.google.android.exoplayer2.ExoPlayer.EventListener eventListener = new com.google.android.exoplayer2.ExoPlayer.EventListener() {
         @Override
@@ -77,7 +78,7 @@ public class ExoPlayer {
             switch (playbackState){
                 case com.google.android.exoplayer2.ExoPlayer.STATE_ENDED:
                     Log.i(TAG,"Playback ended!");
-                    setPlayPause(false);
+                    exoPlayer.setPlayWhenReady(false);
                     exoPlayer.seekTo(0);
                     break;
                 case com.google.android.exoplayer2.ExoPlayer.STATE_READY:

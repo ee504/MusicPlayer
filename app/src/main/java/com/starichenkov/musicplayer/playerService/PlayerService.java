@@ -38,45 +38,25 @@ public class PlayerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand() 123");
-        String input = intent.getStringExtra("inputExtra");
-        Log.d(TAG, "input:" + input);
-        //createNotificationChannel();
-        //Intent notificationIntent = new Intent(this, MainActivity.class);
-        //PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                //0, notificationIntent, 0);
-
-        /*Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Foreground Service")
-                .setContentText("Some track")
-                .setSmallIcon(R.drawable.vinyl_record_60x60)
-                //.setContentIntent(pendingIntent)
-                .build();*/
-
-        //startForeground(1, notification);
-
-        //do heavy work on a background thread
-
-        exo = new ExoPlayer(getApplicationContext(), input);
-        Log.d(TAG, "start player");
-        setPlayPausePlayer(true);
-        //stopSelf();
-
         return START_NOT_STICKY;
     }
 
-    public void doSome(){
-        Log.d(TAG, "SOME");
+    public long getTrackDuration() {
+        return exo.exoPlayer.getDuration();
+    }
+
+    public long getTrackCurrentPosition() {
+        return exo.exoPlayer.getCurrentPosition();
     }
 
     public void setPlayPausePlayer(boolean value){
-        exo.setPlayPause(value);
+        exo.exoPlayer.setPlayWhenReady(value);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        exo.setPlayPause(false);
+        exo.exoPlayer.setPlayWhenReady(false);
     }
 
     @Nullable
