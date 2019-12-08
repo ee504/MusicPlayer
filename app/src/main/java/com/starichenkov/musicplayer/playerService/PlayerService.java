@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
@@ -23,6 +25,10 @@ public class PlayerService extends Service {
     public static final String CHANNEL_ID = "ForegroundServiceChannel";
     private ExoPlayer exo;
     private final IBinder binder = new LocalBinder();
+
+    public void setPlayerTo(int value) {
+        exo.exoPlayer.seekTo(value);
+    }
 
     public class LocalBinder extends Binder {
         public PlayerService getService() {

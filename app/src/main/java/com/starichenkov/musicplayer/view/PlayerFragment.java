@@ -50,10 +50,10 @@ public class PlayerFragment extends Fragment{
 
     private final static String TAG = "myTag";
 
-    private SimpleExoPlayer exoPlayer;
+    //private SimpleExoPlayer exoPlayer;
     private SeekBar seekPlayerProgress;
     private Handler handler;
-    private ImageButton btnPlay;
+    //private ImageButton btnPlay;
     private TextView txtCurrentTime, txtEndTime;
     private boolean isPlaying = false;
 
@@ -72,9 +72,11 @@ public class PlayerFragment extends Fragment{
 
         getLifecycle().addObserver(viewModel);
 
-        txtCurrentTime = (TextView) view.findViewById(R.id.time_current);
+        //txtCurrentTime = (TextView) view.findViewById(R.id.time_current);
         //txtEndTime = (TextView) view.findViewById(R.id.player_end_time);
         seekPlayerProgress = (SeekBar) view.findViewById(R.id.mediacontroller_progress);
+
+        initSeekBar();
 
         return view;
     }
@@ -175,25 +177,29 @@ public class PlayerFragment extends Fragment{
         //seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
         //txtCurrentTime.setText(stringForTime((int)exoPlayer.getCurrentPosition()));
         //txtEndTime.setText(stringForTime((int)exoPlayer.getDuration()));
-
+        Log.d(TAG, "setProgress");
         if(handler == null)handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (exoPlayer != null && isPlaying) {
+                Log.d(TAG, "Check for update ");
+                if (viewModel.checkForPlaying()) {
+                    Log.d(TAG, "update");
                     //seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
-                    int mCurrentPosition = (int) exoPlayer.getCurrentPosition() / 1000;
-                    seekPlayerProgress.setProgress(mCurrentPosition);
-                    txtCurrentTime.setText(stringForTime((int)exoPlayer.getCurrentPosition()));
+                    viewModel.updateProgress();
+                    //int mCurrentPosition = (int) exoPlayer.getCurrentPosition() / 1000;
+                    //seekPlayerProgress.setProgress(mCurrentPosition);
+                    //txtCurrentTime.setText(stringForTime((int)exoPlayer.getCurrentPosition()));
                     //txtEndTime.setText(stringForTime((int)exoPlayer.getDuration()));
 
-                    handler.postDelayed(this, 1000);
+                    //handler.postDelayed(this, 1000);
                 }
+                handler.postDelayed(this, 1000);
             }
         });
     }
 
-    /*private void initSeekBar() {
+    private void initSeekBar() {
 
         seekPlayerProgress.requestFocus();
 
@@ -203,7 +209,7 @@ public class PlayerFragment extends Fragment{
                 if (!fromUser) {
                     return;
                 }
-                exoPlayer.seekTo(progress*1000);
+                viewModel.setPlayerTo(progress*1000);
             }
 
             @Override
@@ -212,9 +218,8 @@ public class PlayerFragment extends Fragment{
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
-        seekPlayerProgress.setMax(0);
-        seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
-    }*/
+        setProgress();
+    }
 
     /*private ExoPlayer.EventListener eventListener = new ExoPlayer.EventListener() {
         @Override

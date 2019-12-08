@@ -54,9 +54,10 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
 
     private boolean isPlaying = false;
 
-    public ObservableField<String> currentTrackTime;
-    public ObservableField<String> trackTime;
-    public ObservableInt sizeBarMax;
+    public ObservableField<String> currentTrackTime = new ObservableField<>("00:00");
+    public ObservableField<String> trackTime = new ObservableField<>("30:00");
+    public ObservableInt sizeBarMax = new ObservableInt(30);
+    public ObservableInt currentSizeBarPosition = new ObservableInt(0);;
 
     public TrackViewModel(@NonNull Application application) {
         super(application);
@@ -67,9 +68,6 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         adapter = new TrackListAdapter(R.layout.item_track, this);
         selected = new MutableLiveData<>();
         showEmpty = new ObservableInt(View.GONE);
-        currentTrackTime.set("00:00");
-        trackTime.set("30:00");
-        sizeBarMax.set(30);
     }
     //поиск при изменении текста
     public void onTextChanged(CharSequence s, int start, int before, int count){
@@ -135,21 +133,6 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         return null;
 
     }
-    //длина сайзбара
-    public int getSeekBarSize(){
-        //return (int) mService.getTrackDuration()/1000;
-        return 30;
-    }
-    //длина трека
-    public String getTrackDuration(){
-        //return stringForTime((int)mService.getTrackDuration());
-        return "30:00";
-    }
-    //текущая позиция в треке
-    public String getTrackCurrentPosition(){
-        //return stringForTime((int)mService.getTrackCurrentPosition());
-        return "00:00";
-    }
     //очистка списка
     public void clearAdapter() {
         Log.d(TAG, "here: ");
@@ -180,8 +163,6 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         getApplication().bindService(intent, connection, Context.BIND_AUTO_CREATE);
         isPlaying = true;
 
-        trackTime.set(stringForTime((int)mService.getTrackDuration()));
-        sizeBarMax.set((int) mService.getTrackDuration()/1000);
     }
 
     public void stopService(){
@@ -231,5 +212,22 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
         } else {
             return mFormatter.format("%02d:%02d", minutes, seconds).toString();
         }
+    }
+
+    public void setPlayerTo(int value) {
+        mService.setPlayerTo(value);
+    }
+
+    public boolean checkForPlaying() {
+        if(mService != null && isPlaying == true){
+            return true;
+        }
+        return false;
+    }
+
+    public void updateProgress() {
+
+        currentTrackTime.set(stringForTime((int) mService.getTrackCurrentPosition()));
+        currentSizeBarPosition.set((int) mService.getTrackCurrentPosition()/1000);
     }
 }

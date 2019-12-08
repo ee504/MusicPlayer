@@ -92,7 +92,8 @@
                     android:backgroundTint="@color/colorGrey"
                     android:progressBackgroundTint="@color/colorGrey"
                     android:max="@{viewModel.sizeBarMax}"
-                    android:min="0"/>
+                    android:min="0"
+                    android:progress="@{viewModel.currentSizeBarPosition}"/>
 
                 <TextView android:id="@+id/player_end_time"
                     android:textSize="14sp"

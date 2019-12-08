@@ -31,8 +31,6 @@ public class MainActivity extends FragmentActivity{
 
         setFragments();
         setBindings(savedInstanceState);
-
-
     }
 
     private void setFragments(){
