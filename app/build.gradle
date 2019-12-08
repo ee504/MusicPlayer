@@ -59,4 +59,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:r2.2.0'
     //implementation 'com.google.android.exoplayer:exoplayer:' + project.ext.exoPlayerVersion
 
+    //mplementation 'com.android.databinding:compiler:1.0-rc0'
+    //annotationProcessor 'com.android.databinding:compiler:2.3.0'
+
 }

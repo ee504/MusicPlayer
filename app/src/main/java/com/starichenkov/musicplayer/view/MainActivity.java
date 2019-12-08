@@ -51,7 +51,6 @@ public class MainActivity extends FragmentActivity{
         if (savedInstanceState == null) {
             viewModel.init();
         }
-        //activityBinding.setViewModel(viewModel);
         setupListClick();
     }
 
@@ -62,7 +61,6 @@ public class MainActivity extends FragmentActivity{
             public void onChanged(Track track) {
                 Log.d(TAG, "onChanged(): activity");
                 if (track != null) {
-                    //Toast.makeText(MainActivity.this, "Main Activity You selected a " + track.getTrackName(), Toast.LENGTH_SHORT).show();
                     FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
                     fTrans.replace(R.id.frgmMain, mPlayerFragment)
                             .addToBackStack(null)
@@ -72,13 +70,10 @@ public class MainActivity extends FragmentActivity{
         });
     }
 
-    //открывает фрагмент с воспроизведением трека
-    public void openTrack(){
-        Log.d(TAG, "OpenPlaceAutocomplete");
-        FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
-        fTrans.replace(R.id.frgmMain, mPlayerFragment)
-                .addToBackStack(null)
-                .commit();
-    };
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        viewModel.stopService();
+    }
 
 }

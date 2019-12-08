@@ -1,15 +1,25 @@
 package com.starichenkov.musicplayer.viewmodel;
 
 import android.app.Activity;
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModel;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.databinding.ObservableInt;
+import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.starichenkov.musicplayer.adapter.TrackListAdapter;
 import com.starichenkov.musicplayer.R;
@@ -27,7 +37,7 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class TrackViewModel extends ViewModel implements LifecycleObserver {
+public class TrackViewModel extends AndroidViewModel implements LifecycleObserver{
 
     private final String TAG = "myTag";
 
@@ -36,7 +46,14 @@ public class TrackViewModel extends ViewModel implements LifecycleObserver {
     private MutableLiveData<Track> selected;
     public ObservableInt showEmpty;
 
-    private Intent serviceIntentPlayer;
+    private PlayerService mService;
+    private boolean mBound = false;
+
+    private boolean isPlaying = false;
+
+    public TrackViewModel(@NonNull Application application) {
+        super(application);
+    }
 
     public void init(){
         tracks = new MutableLiveData<List<Track>>();
@@ -71,10 +88,6 @@ public class TrackViewModel extends ViewModel implements LifecycleObserver {
             clearAdapter();
         }
     }
-
-    //public void fetchList() {
-
-    //}
 
     public MutableLiveData<List<Track>> getTracks() {
         return tracks;
@@ -122,12 +135,53 @@ public class TrackViewModel extends ViewModel implements LifecycleObserver {
     }
 
     public void clickOnPlayButton(View view){
-        Log.d(TAG, "clickOnPlayButton: " + view.getTransitionName());
+        ImageView imageView = (ImageView)view;
+        if(isPlaying){
+            Log.d(TAG, "isPlaying true ");
+            imageView.setImageResource(R.drawable.ic_play_circle_filled_black_90dp);
+            mService.setPlayPausePlayer(false);
+            isPlaying = false;
+        }else{
+            Log.d(TAG, "isPlaying false ");
+            imageView.setImageResource(R.drawable.ic_pause_circle_filled_black_90dp);
+            mService.setPlayPausePlayer(true);
+            isPlaying = true;
+        }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    protected void onLifecycleStart(Activity activity) {
-        this.serviceIntentPlayer = new Intent(activity, PlayerService.class);
-        activity.stopService(this.serviceIntentPlayer);
+    public void startService() {
+        Intent intent = new Intent(getApplication(), PlayerService.class);
+        intent.putExtra("inputExtra", selected.getValue().getTrackUrl());
+        getApplication().bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        isPlaying = true;
     }
+
+    public void stopService(){
+        getApplication().unbindService(connection);
+        mBound = false;
+    }
+
+    //создает сервис при открытии фрагмента с проигрыванием музыки
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    void onLifecycleStart() {
+        startService();
+    }
+
+    //привязка сервиса
+    private ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            PlayerService.LocalBinder binder = (PlayerService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
 }

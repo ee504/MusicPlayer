@@ -82,7 +82,6 @@ public class PlayerFragment extends Fragment{
         return view;
     }
 
-
     @Override
     public void onDestroy() {
 

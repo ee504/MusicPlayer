@@ -28,8 +28,10 @@ public class ExoPlayer {
     private SimpleExoPlayer exoPlayer;
     private TrackSelector trackSelector;
     private LoadControl loadControl;
-    DefaultDataSourceFactory dataSourceFactory;
-    ExtractorsFactory extractorsFactory;
+    private DefaultDataSourceFactory dataSourceFactory;
+    private ExtractorsFactory extractorsFactory;
+
+    private long currPosition = 0;
 
     private boolean isPlaying = false;
 
@@ -79,7 +81,9 @@ public class ExoPlayer {
                     exoPlayer.seekTo(0);
                     break;
                 case com.google.android.exoplayer2.ExoPlayer.STATE_READY:
-                    Log.i(TAG,"ExoPlayer ready! pos: "+exoPlayer.getCurrentPosition());
+                    Log.i(TAG,"ExoPlayer ready! pos: "+ exoPlayer.getCurrentPosition());
+                    Log.i(TAG,"playWhenReady: "+ playWhenReady);
+
                     break;
                 case com.google.android.exoplayer2.ExoPlayer.STATE_BUFFERING:
                     Log.i(TAG,"Playback buffering!");
