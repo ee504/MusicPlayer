@@ -40,7 +40,6 @@ public class TrackListFragment extends Fragment {
         binding.setViewModel(viewModel);
         setupListUpdate();
         //setupListClick();
-
         return view;
     }
     //отслеживание изменения списка

@@ -13,10 +13,12 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.starichenkov.musicplayer.R;
 import com.starichenkov.musicplayer.view.MainActivity;
+import com.starichenkov.musicplayer.view.PlayerFragment;
 
 public class PlayerService extends Service {
 
@@ -73,19 +75,29 @@ public class PlayerService extends Service {
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind()");
 
-        String input = intent.getStringExtra("inputExtra");
+        //получение данных из интент
+        String trackUrl = intent.getStringExtra("trackUrl");
+        String trackName = intent.getStringExtra("trackName");
+        String artistName = intent.getStringExtra("artistName");
+
         createNotificationChannel();
 
+        //создание padding чтобы при клике на notification открывалось последнее открытое окно приложения
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        notificationIntent.setAction(Intent.ACTION_MAIN);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Foreground Service")
-                .setContentText("Some track")
-                .setSmallIcon(R.drawable.vinyl_record_60x60)
-                //.setContentIntent(pendingIntent)
+                .setContentTitle(trackName)
+                .setContentText(artistName)
+                .setSmallIcon(R.drawable.ic_play_circle_filled_black_24dp)
+                .setContentIntent(pendingIntent)
                 .build();
 
         startForeground(1, notification);
 
-        exo = new ExoPlayer(getApplicationContext(), input);
+        exo = new ExoPlayer(getApplicationContext(), trackUrl);
         setPlayPausePlayer(true);
 
         return binder;

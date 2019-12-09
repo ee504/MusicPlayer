@@ -159,7 +159,9 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
 
     public void startService() {
         Intent intent = new Intent(getApplication(), PlayerService.class);
-        intent.putExtra("inputExtra", selected.getValue().getTrackUrl());
+        intent.putExtra("trackUrl", selected.getValue().getTrackUrl());
+        intent.putExtra("trackName", selected.getValue().getTrackName());
+        intent.putExtra("artistName", selected.getValue().getArtistName());
         getApplication().bindService(intent, connection, Context.BIND_AUTO_CREATE);
         isPlaying = true;
     }
