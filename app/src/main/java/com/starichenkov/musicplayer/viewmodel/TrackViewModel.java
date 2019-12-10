@@ -174,7 +174,11 @@ public class TrackViewModel extends AndroidViewModel implements LifecycleObserve
     //создает сервис при открытии фрагмента с проигрыванием музыки
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     void onLifecycleStart() {
-        startService();
+        if(mBound){
+            mService.startNewPlayer(selected.getValue().getTrackUrl(), selected.getValue().getTrackName(), selected.getValue().getArtistName());
+        }else{
+            startService();
+        }
     }
 
     //привязка сервиса

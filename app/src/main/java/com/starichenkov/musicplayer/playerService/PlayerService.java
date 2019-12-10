@@ -74,12 +74,21 @@ public class PlayerService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind()");
-
-        //получение данных из интент
         String trackUrl = intent.getStringExtra("trackUrl");
         String trackName = intent.getStringExtra("trackName");
         String artistName = intent.getStringExtra("artistName");
 
+        startNewPlayer(trackUrl, trackName, artistName);
+
+        return binder;
+    }
+
+    public void startNewPlayer(String trackUrl, String trackName, String artistName){
+
+        if(exo != null){
+            exo.exoPlayer.release();
+            exo = null;
+        }
         createNotificationChannel();
 
         //создание padding чтобы при клике на notification открывалось последнее открытое окно приложения
@@ -99,8 +108,6 @@ public class PlayerService extends Service {
 
         exo = new ExoPlayer(getApplicationContext(), trackUrl);
         setPlayPausePlayer(true);
-
-        return binder;
     }
 
     private void createNotificationChannel() {
